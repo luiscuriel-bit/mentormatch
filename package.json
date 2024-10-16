@@ -1,0 +1,39 @@
+{
+  "name": "mentormatch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luiscuriel-bit/mentormatch.git"
+  },
+  "keywords": [
+    "mentoring",
+    "tutoring",
+    "education",
+    "mentees",
+    "mentors",
+    "matchmaking",
+    "learning",
+    "career",
+    "guidance",
+    "nodejs",
+    "express",
+    "full stack"
+  ],
+  "author": "Luis Curiel De Sousa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luiscuriel-bit/mentormatch/issues"
+  },
+  "homepage": "https://github.com/luiscuriel-bit/mentormatch#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.1"
+  }
+}

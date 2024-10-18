@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../partials/head.ejs") %>
+
+    <body>
+        <h1>Create a new account</h1>
+        <form action="/auth/sign-up" method="post">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required />
+
+            <label for="email">Email address</label>
+            <input type="email" name="email" id="email" required />
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" minlength="8" maxlength="100" autocomplete="off" />
+            <span id="strengthMessage"></span>
+            
+            <label for="confirmPassword" min>Confirm Password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required />
+
+            <label for="role">Role</label>
+            <select name="role" id="role" required>
+                <option value="" disabled selected>Choose an option</option>
+                <option value="student">Student</option>
+                <option value="mentor">Mentor</option>
+            </select>
+            
+            <label for="bio">Biography</label>
+            <input type="text" name="profile[bio]" id="bio" maxlength="500">
+            
+            <div id="mentorFields">
+                <label for="experience">Experience</label>
+                <select name="profile[experience]" id="experience">
+                    <% for (subject of subjectList) { %>
+                        <option value="<%= subject %>"><%= subject %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div id="studentFields">
+                <label for="interests">Interests</label>
+                <select name="profile[interests]" id="interests">
+                    <% for (subject of subjectList) { %>
+                        <option value="<%= subject %>"><%= subject %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <button type="submit">Sign up</button>
+        </form>
+    </body>
+
+</html>

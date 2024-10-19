@@ -1,0 +1,30 @@
+.navbar-container{
+    position: relative;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.navbar-nav {
+    color: #FFF
+}
+
+.search-bar{
+    width: 80%;
+}
+
+
+.search-wrapper {
+    /* 
+    To place the search bar at the middle of the navbar
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%; */
+    margin: 15px 50px;
+}
+
+.bg-custom{
+    background-color: rgba(6,13,34,255);
+}

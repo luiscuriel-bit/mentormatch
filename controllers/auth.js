@@ -11,7 +11,7 @@ const Subject = require("../models/Subject.js");
 
 // Sign up
 router.get("/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs", { title: "Sign up", cssFile: "sign-up.css", jsFile: "sign-up.js", subjectList: ["Math", "Science", "History"] });
+    res.render("auth/sign-up.ejs", { title: "Sign up", cssFiles: ["sign-up.css"], jsFiles: ["sign-up.js"], subjectList: ["Math", "Science", "History"] });
 });
 
 router.post("/sign-up", async (req, res) => {
@@ -46,7 +46,7 @@ router.post("/sign-up", async (req, res) => {
 
 // Sign in
 router.get("/sign-in", (req, res) => {
-    res.render("auth/sign-in.ejs", { title: "Sign in", cssFile: "", jsFile: "" });
+    res.render("auth/sign-in.ejs", { title: "Sign in", cssFiles: [], jsFiles: [] });
 });
 
 router.post("/sign-in", async (req, res) => {

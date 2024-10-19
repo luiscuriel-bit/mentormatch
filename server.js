@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/auth", authController);
 
 app.get('/', (req, res) => {
-    res.render("index.ejs", { title: "MentorMatch", cssFile: "", jsFile: "", user: req.session.user });
+    res.render("index.ejs", { title: "MentorMatch", cssFiles: [], jsFiles: [], user: req.session.user });
 })
 
 const port = process.env.PORT || 3000;

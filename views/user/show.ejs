@@ -4,10 +4,14 @@
 <%- include("../partials/head.ejs") %>
 
     <body>
-        <% if (userProfile._id.equals(user._id)) { %>
+
+        <%- include("../partials/navbar.ejs") %>
+
+        <% if (user && userProfile._id.equals(user._id)) { %>
             <a href="/user/<%= user._id %>/edit">Edit</a>
         <% } %>
         
+        <h1><%= userProfile.name %></h1>
         <h1><%= userProfile.username %></h1>
 
         <h2><%= userProfile.role %></h2>
@@ -34,7 +38,11 @@
                     <p><%= review.rating %> / 5</p>
                 </article>
             <% } %>
+            <% if (user && user.role === "student") { %>
+                <a href="/session/new/<%= userProfile._id %>">Schedule a session</a>
+            <% } %>
         <% } %>
+
         
     </body>
 

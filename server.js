@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const path = require("path")
+const methodOverride = require("method-override");
 
 // Importing models
 const User = require("./models/User.js");
@@ -41,6 +42,7 @@ app.use(session({
 }));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"))
 app.use(express.static(path.join(__dirname, "public")));
 app.use(addUserToLocals);
 
@@ -52,9 +54,9 @@ app.get('/', (req, res) => {
     res.render("index.ejs", { title: "MentorMatch", cssFiles: [], jsFiles: [], user: req.session.user });
 });
 
-app.use(requireLogin);
-
 app.use("/user", userController);
+
+app.use(requireLogin);
 app.use("/session", mentorshipSessionController);
 
 const port = process.env.PORT || 3100;

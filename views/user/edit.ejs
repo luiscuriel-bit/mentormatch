@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../partials/head.ejs") %>
+
+    <body>
+        <h1>Create a new account</h1>
+        <form action="/user/<%= userProfile._id %>?_method=put" method="post">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required />
+            
+            <label for="bio">Biography</label>
+            <input type="text" name="profile[bio]" id="bio" maxlength="500">
+            
+            <div id="<%= `${userProfile.role}Fields` %>">
+                <label for="<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>"><%= userProfile.role === 'mentor' ? 'Experience' : 'Interests'%></label>
+                <select name="profile[<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>]" id="<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>" multiple>
+                    <% for (subject of subjectList) { %>
+                        <option value="<%= subject %>"><%= subject %></option>
+                    <% } %>`
+                </select>
+            </div>
+
+            <button type="submit">Update</button>
+        </form>
+
+        <form action="/user/<%= userProfile._id %>?_method=delete" method="post">
+            <button type="submit">Delete account</button>
+        </form>
+    </body>
+
+</html>

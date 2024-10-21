@@ -12,7 +12,7 @@ const User = require("../models/User.js");
 router.get("/sign-up", async (req, res) => {
     const subjectList = ["Mathematics", "Physics", "Chemistry", "Biology", "History", "Literature", "Psychology", "Philosophy", "Economics", "Political Science", "Sociology", "Computer Science", "Software Engineering", "Web Development", "Graphic Design", "Business Administration", "Marketing", "Accounting", "Statistics", "Communication", "Education", "Medicine", "Nursing", "Architecture", "Law", "Linguistics", "Anthropology", "Music", "Fine Arts", "Social Work"];
 
-    res.render("auth/sign-up.ejs", { title: "Sign up", cssFiles: ["sign-up.css"], jsFiles: ["sign-up.js"], subjectList});
+    res.render("auth/sign-up.ejs", { title: "Sign up", cssFiles: ["sign-up.css"], jsFiles: ["user-views.js"], subjectList});
 });
 
 router.post("/sign-up", async (req, res) => {
@@ -35,8 +35,11 @@ router.post("/sign-up", async (req, res) => {
         req.body.password = hashedPassword;
 
         newUser = await User.create(req.body);
+        
         req.session.user = {
-            username: newUser.username,
+            username: userInDatabase.username,
+            _id: userInDatabase._id,
+            role: userInDatabase.role,
         };
         req.session.save(() => res.redirect('/'));
     } catch (error) {
@@ -68,6 +71,7 @@ router.post("/sign-in", async (req, res) => {
         req.session.user = {
             username: userInDatabase.username,
             _id: userInDatabase._id,
+            role: userInDatabase.role,
         };
 
         req.session.save(() => res.redirect('/'));

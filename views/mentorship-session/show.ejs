@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../partials/head.ejs") %>
+
+    <body>
+
+        <%- include("../partials/navbar.ejs") %>
+
+            <h1><%= `${session.subject} class with ${user.role === "student" ? session.mentor.name : session.student.name}` %></h1>
+
+            <h2>Additional info</h2>
+
+    </body>
+
+</html>

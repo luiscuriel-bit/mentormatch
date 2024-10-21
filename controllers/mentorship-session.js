@@ -11,12 +11,10 @@ const MentorshipSession = require("../models/MentorshipSession.js");
 // Sessions index
 router.get("/", async (req, res) => {
     try {
-
-        const currentUser = await User.findById(req.session.user._id);
         const sessions = await MentorshipSession.find({
             $or: [
-                { mentor: currentUser },
-                { student: currentUser },
+                { mentor: req.session.user._id },
+                { student: req.session.user._id },
             ]
         })
             .populate("mentor student");
@@ -32,12 +30,31 @@ router.get("/", async (req, res) => {
                 formattedTime,
             }
         })
-        res.render("mentorship-session/index.ejs", { title: "Mentorship Sessions", cssFiles: [], jsFiles: [], sessions, formattedSessions, currentUser });
+        res.render("mentorship-session/index.ejs", { title: "Mentorship Sessions", cssFiles: [], jsFiles: [], formattedSessions });
     } catch (error) {
         console.error(error);
         res.redirect('/');
     }
 });
+
+// Session show view
+router.get("/:sessionId", async (req, res) => {
+    try {
+        const session = await MentorshipSession.findById(req.params.sessionId)
+            .populate("mentor student");
+        const date = session.date;
+        const formattedSession = {
+            ...session.toObject(),
+            formattedDate: date.toLocaleDateString("en-US"),
+            formattedTime: date.toLocaleTimeString("en-US"),
+        }
+        res.render("mentorship-session/show.ejs", { title: `Session with ${req.session.user.role === "student" ? session.mentor.name : session.student.name}`, cssFiles: [], jsFiles: [], session: formattedSession });
+    } catch (error) {
+        console.error(error);
+        res.redirect('/');
+    }
+});
+
 
 // New session form
 router.get("/new/:mentorId", async (req, res) => {
@@ -51,7 +68,7 @@ router.get("/new/:mentorId", async (req, res) => {
             }
         });
 
-        const subjectList = mentor.profile.interests;
+        const subjectList = mentor.profile.experience;
         res.render("mentorship-session/new.ejs", { title: `Session with ${mentor.username}`, cssFiles: [], jsFiles: ["new-session.js"], mentor, occupiedSlots, subjectList });
     } catch (error) {
         console.error(error);
@@ -68,7 +85,7 @@ router.post("/:mentorId", async (req, res) => {
         if (!mentor || !student) {
             throw new Error('Mentor or student not found');
         }
-        const selectedDate = new Date(req.body.date);
+        const selectedDate = new Date(`${req.body.date}T${req.body.time}:00Z`);
 
         const [hours, minutes] = req.body.time.split(':').map(Number);
         selectedDate.setHours(hours);
@@ -85,7 +102,7 @@ router.post("/:mentorId", async (req, res) => {
         await mentor.save();
         await student.save();
 
-        res.redirect(`/user/${mentorId}`);
+        res.redirect(`/user/${mentor._id}`);
     } catch (error) {
         console.error(error);
         res.redirect('/');

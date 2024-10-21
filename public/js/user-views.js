@@ -20,7 +20,7 @@ function handlePasswordInput(event) {
 function handleRoleChange(event) {
     mentorFields.style.display = role.value === "mentor" ? "block" : "none";
     studentFields.style.display = role.value === "student" ? "block" : "none";
-    experience.setAttribute("required", role.value === "mentor" ? "true" : "false");
+    role.value === "mentor" ? experience.setAttribute("required", "required") : experience.removeAttribute("required");
 }
 
 function handleSubmit(event) {
@@ -31,6 +31,8 @@ function handleSubmit(event) {
 }
 
 // Event Listener
-password.addEventListener("input", handlePasswordInput);
+if (password) {
+    password.addEventListener("input", handlePasswordInput);
+    form.addEventListener("submit", handleSubmit);
+}
 role.addEventListener("change", handleRoleChange);
-form.addEventListener("submit", handleSubmit);

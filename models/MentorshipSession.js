@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const User = require("./User.js");
-const Subject = require("./Subject");
 
 const mentorshipSessionSchema = new mongoose.Schema({
     mentor: {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials/head.ejs") %>
+
+    <body>
+
+        <%- include("./partials/navbar.ejs") %>
+
+            <h1>Search results for <%= query %>
+            </h1>
+
+            <% if (mentors.length> 0) { %>
+                <ul>
+                    <% mentors.forEach(mentor=> { %>
+                        <li>
+                            <h2>
+                                <a href="/user/<%= mentor._id %>"><%= mentor.username %></a>
+                            </h2>
+                            <p><strong>
+                                    <%= mentor.bio %>
+                                </strong></p>
+                            <p><strong>Experience:</strong>
+                                <%= mentor.profile.experience.reduce((str, exp)=> str += `${exp}\n`, "")%>
+                            </p>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } else { %>
+                    <p>No mentors found matching your search</p>
+                <% } %>
+
+    </body>
+
+</html>

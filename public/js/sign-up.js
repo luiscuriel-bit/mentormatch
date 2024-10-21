@@ -1,10 +1,11 @@
+const form = document.querySelector("form");
 const role = document.getElementById("role");
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirmPassword");
 const strengthMessage = document.getElementById("strengthMessage")
+const experience = document.getElementById("experience")
 const mentorFields = document.getElementById("mentorFields");
 const studentFields = document.getElementById("studentFields");
-const form = document.querySelector("form");
 
 function handlePasswordInput(event) {
     const password = this.value;
@@ -19,6 +20,7 @@ function handlePasswordInput(event) {
 function handleRoleChange(event) {
     mentorFields.style.display = role.value === "mentor" ? "block" : "none";
     studentFields.style.display = role.value === "student" ? "block" : "none";
+    experience.setAttribute("required", role.value === "mentor" ? "true" : "false");
 }
 
 function handleSubmit(event) {

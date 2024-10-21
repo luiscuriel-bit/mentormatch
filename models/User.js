@@ -9,10 +9,11 @@ const profileSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
+    name: {type: String, required: true, trim: true},
     username: { type: String, required: true, trim: true, unique: true },
     password: { type: String, required: true, minlength: 8 },
     email: { type: String, required: true, trim: true, unique: true, match: /.+\@.+\..+/ },
-    role: { type: String, enum: ["student", "mentor"], required: true },
+    role: { type: String, enum: ["mentor", "student"], required: true },
     profile: profileSchema,
     joinedAt: { type: Date, default: Date.now },
     sessions: [{

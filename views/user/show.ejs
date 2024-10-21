@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../partials/head.ejs") %>
+
+    <body>
+        <% if (userProfile._id.equals(user._id)) { %>
+            <a href="/user/<%= user._id %>/edit">Edit</a>
+        <% } %>
+        
+        <h1><%= userProfile.username %></h1>
+
+        <h2><%= userProfile.role %></h2>
+
+        <p>
+            <%= userProfile.profile %>
+        </p>
+
+        <h2><%= userProfile.role === "mentor" ? "Experience" : "Interests" %></h2>
+
+        <ul>
+            <% const knowledgeArea = userProfile.role === "mentor" ? userProfile.profile.experience : userProfile.profile.interests %>
+            
+            <% for (item of knowledgeArea) { %>
+                <li><%= item %></li>
+            <% } %>
+        </ul>
+
+        <% if (userProfile.role === "mentor") { %>
+            <% for (review of userProfile.reviews) { %>
+                <article>
+                    <h3><%= review.comment %></h3>
+                    <p>by <%= review.student.username %></p>
+                    <p><%= review.rating %> / 5</p>
+                </article>
+            <% } %>
+        <% } %>
+        
+    </body>
+
+</html>

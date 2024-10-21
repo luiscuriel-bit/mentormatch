@@ -9,12 +9,14 @@ const path = require("path")
 
 // Importing models
 const User = require("./models/User.js");
-const Subject = require("./models/Subject.js");
 const MentorshipSession = require("./models/MentorshipSession.js");
 const Review = require("./models/Review.js");
 
 // Importing controllers
 const authController = require("./controllers/auth.js");
+const searchController = require("./controllers/search.js")
+const userController = require("./controllers/user.js");
+const mentorshipSessionController = require("./controllers/mentorship-session.js");
 
 // Importing middleware
 const addUserToLocals = require("./middleware/add-user-to-locals.js");
@@ -44,6 +46,7 @@ app.use(addUserToLocals);
 
 // Routers
 app.use("/auth", authController);
+app.use("/search", searchController);
 
 app.get('/', (req, res) => {
     res.render("index.ejs", { title: "MentorMatch", cssFiles: [], jsFiles: [], user: req.session.user });
@@ -51,5 +54,8 @@ app.get('/', (req, res) => {
 
 app.use(requireLogin);
 
-const port = process.env.PORT || 3000;
+app.use("/user", userController);
+app.use("/session", mentorshipSessionController);
+
+const port = process.env.PORT || 3100;
 app.listen(port, (req, res) => console.log(`Server listening on port ${port}`));

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials/head.ejs") %>
+
+    <body>
+
+        <%- include("./partials/navbar.ejs") %>
+
+        <h1>Mentorship sessions</h1>
+            <ul>
+              <% formattedSessions.forEach((session)=>{ %>
+                <a href="/session/<%= session._id %>">
+                  <li>
+                    <%= `Session with ${currentUser.username}` %>
+                  </li>
+                </a>
+                <p><%= `Meeting on ${session.formattedDate} at ${session.formattedTime}` %></p>
+              <% }); %>
+            </ul>
+          </div>
+    </body>
+
+</html>

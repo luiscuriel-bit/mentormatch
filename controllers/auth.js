@@ -5,13 +5,14 @@ const bcrypt = require("bcrypt");
 
 // Importing models
 const User = require("../models/User.js");
-const Subject = require("../models/Subject.js");
 
 // Routes
 
 // Sign up
-router.get("/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs", { title: "Sign up", cssFiles: ["sign-up.css"], jsFiles: ["sign-up.js"], subjectList: ["Math", "Science", "History"] });
+router.get("/sign-up", async (req, res) => {
+    const subjectList = ["Mathematics", "Physics", "Chemistry", "Biology", "History", "Literature", "Psychology", "Philosophy", "Economics", "Political Science", "Sociology", "Computer Science", "Software Engineering", "Web Development", "Graphic Design", "Business Administration", "Marketing", "Accounting", "Statistics", "Communication", "Education", "Medicine", "Nursing", "Architecture", "Law", "Linguistics", "Anthropology", "Music", "Fine Arts", "Social Work"];
+
+    res.render("auth/sign-up.ejs", { title: "Sign up", cssFiles: ["sign-up.css"], jsFiles: ["sign-up.js"], subjectList});
 });
 
 router.post("/sign-up", async (req, res) => {

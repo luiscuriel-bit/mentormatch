@@ -24,14 +24,47 @@
                         <strong>Date:</strong> <%= session.formattedDate %><br>
                         <strong>Time:</strong> <%= session.formattedTime %><br>
                     </p>
-
-                    <% if (session.mentor._id.equals(user._id)) { %>
-                        <a href="/session/<%= session._id %>/edit" class="btn btn-secondary">Edit Session</a>
+                    <% if (session.resources) { %>
+                        <h5 class="card-title">Additional Resources</h5>
+                        <p class="card-text">
+                            <%= session.resources %>
+                        </p>
                     <% } %>
 
-                    <form action="/session/<%= session._id %>?_method=delete" method="post" class="text-center mt-4">
-                        <button type="submit" class="btn btn-danger">Cancel Session</button>
-                    </form>
+                    
+                    <div class="container text-center">
+                        <% if (session.mentor._id.equals(user._id)) { %>
+                            <a href="/session/<%= session._id %>/edit" class="btn btn-secondary">Edit Session</a>
+                        <% } %>
+                            
+                        <% if (session.student._id.equals(user._id)) { %>
+                            <button type="button" id="reviewBtn" class="btn btn-secondary scale">Add Review</button>
+                            <form action="/review/<%= session._id %>" method="post" class="text-center mt-4" id="review">
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Your Review</label>
+                                    <textarea name="comment" id="comment" class="form-control" rows="3" required></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="rating" class="form-label">Rating:</label>
+                                    <select class="form-select" id="rating" name="rating" required>
+                                        <option value="" disabled selected>Select a rating</option>
+                                        <option value="1">1 Star</option>
+                                        <option value="2">2 Stars</option>
+                                        <option value="3">3 Stars</option>
+                                        <option value="4">4 Stars</option>
+                                        <option value="5">5 Stars</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-secondary">Submit Review</button>
+                            </form>
+                        <% } %>
+                            
+                        <form action="/session/<%= session._id %>?_method=delete" method="post" class="text-center mt-4">
+                            <button type="submit" class="btn btn-danger scale">Cancel Session</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

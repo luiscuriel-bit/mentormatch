@@ -14,6 +14,7 @@ const mentorshipSessionSchema = new mongoose.Schema({
     },
     subject: { type: String, required: true },
     date: { type: Date, default: Date.now },
+    resources: { type: String, trim: true, maxlength: 500 },
 });
 
 const MentorshipSession = mongoose.model("MentorshipSession", mentorshipSessionSchema);

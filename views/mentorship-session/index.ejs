@@ -3,36 +3,35 @@
 
 <%- include("../partials/head.ejs") %>
 
-  <body>
+    <body>
 
-    <%- include("../partials/navbar.ejs") %>
+        <%- include("../partials/navbar.ejs") %>
 
-    <div class="container my-5">
-      <h1 class="text-center mb-4">Mentorship Sessions</h1>
-      <div class="row">
-        <% formattedSessions.forEach((session)=>{ %>
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card">
-              <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/session/<%= session._id %>" class="text-decoration-none">
-                        <%= `Session with ${user.role==="student" ? session.mentor.name : session.student.name}` %>
-                    </a>
-                  </h5>
+        <div class="container my-5">
+            <h1 class="text-center mb-4">Mentorship Sessions</h1>
+            <div class="row">
+                <% formattedSessions.forEach((session)=>{ %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                <a href="/session/<%= session._id %>" class="text-decoration-none">
+                                    <%= `Session with ${user.role==="student" ? session.mentor.name : session.student.name}` %>
+                                </a>
+                                </h5>
 
-                  <p class="card-text">
-                    <strong>Date: </strong><%= session.formattedDate %><br>
-                    <strong>Time: </strong><%= session.formattedTime %>
-                  </p>
+                                <p class="card-text">
+                                    <strong>Date: </strong><%= session.formattedDate %><br>
+                                    <strong>Time: </strong><%= session.formattedTime %>
+                                </p>
 
-                  <a href="/session/<%= session._id %>" class="btn btn-primary mt-2">View Details</a>
-              </div>
+                                <a href="/session/<%= session._id %>" class="btn btn-primary mt-2">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
             </div>
-          </div>
-        <% }); %>
-      </div>
-    </div>
+        </div>
 
-  </body>
-
+    </body>
 </html>

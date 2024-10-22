@@ -18,6 +18,7 @@ const authController = require("./controllers/auth.js");
 const searchController = require("./controllers/search.js")
 const userController = require("./controllers/user.js");
 const mentorshipSessionController = require("./controllers/mentorship-session.js");
+const reviewController = require("./controllers/review.js");
 
 // Importing middleware
 const addUserToLocals = require("./middleware/add-user-to-locals.js");
@@ -58,6 +59,7 @@ app.use("/user", userController);
 
 app.use(requireLogin);
 app.use("/session", mentorshipSessionController);
+;app.use("/review", reviewController)
 
 const port = process.env.PORT || 3100;
 app.listen(port, (req, res) => console.log(`Server listening on port ${port}`));

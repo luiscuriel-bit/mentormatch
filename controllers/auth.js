@@ -17,6 +17,8 @@ router.get("/sign-up", async (req, res) => {
 
 router.post("/sign-up", async (req, res) => {
     try {
+        req.body.username = req.body.username.toLowerCase();
+        req.body.email = req.body.email.toLowerCase();
         const userInDatabase = await User.findOne({ username: req.body.username });
 
         if (userInDatabase) {
@@ -55,6 +57,8 @@ router.get("/sign-in", (req, res) => {
 
 router.post("/sign-in", async (req, res) => {
     try {
+        req.body.username = req.body.username.toLowerCase();
+        req.body.email = req.body.email.toLowerCase();
 
         const userInDatabase = await User.findOne({ username: req.body.username });
 

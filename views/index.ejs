@@ -12,21 +12,22 @@
                     <h1 class="display-2">Welcome to MentorMatch</h1>
                     <p class="lead fs-3">Your go-to platform for discovering and booking academic mentorship sessions</p>
                     <% if (user) { %>
-                        <h4 class="display-5">Hello again, <%= user.username %>!</h4>
-                        <a href="/dashboard" class="btn btn-primary scale">Go to your Dashboard</a>
+                        <div class="mt-5">
+                            <h4 class="display-5">Hello again, <%= user.username %>!</h4>
+                            <a href="/dashboard" class="btn btn-primary scale">Go to your Dashboard</a>
+                        </div>
                     <% } else { %>
                         <a href="/auth/sign-up" class="btn btn-primary scale">Start Today</a>
                     <% } %>
                 </div>
             </header>
 
-
             <section class="py-5">
                 <div class="container">
                     <h3 class="mb-4">How it Works</h3>
                     <div class="row">
                         <div class="col-md-4 text-center mb-4">
-                            <div class="card scale">
+                            <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Find a Mentor</h5>
                                     <p class="card-text">Browse through our extensive list of experienced mentors</p>

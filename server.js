@@ -47,19 +47,57 @@ app.use(methodOverride("_method"))
 app.use(express.static(path.join(__dirname, "public")));
 app.use(addUserToLocals);
 
+app.set("view engine", "ejs");
+
 // Routers
 app.use("/auth", authController);
 app.use("/search", searchController);
 
 app.get('/', (req, res) => {
-    res.render("index.ejs", { title: "MentorMatch", cssFiles: [], jsFiles: [], user: req.session.user });
+    res.render("index.ejs", { title: "MentorMatch", cssFiles: [], jsFiles: [] });
 });
 
 app.use("/user", userController);
 
 app.use(requireLogin);
-app.use("/session", mentorshipSessionController);
-;app.use("/review", reviewController)
+app.get("/dashboard", async (req, res) => {
+    try {
+        const user = await User.findById(req.session.user._id);
 
-const port = process.env.PORT || 3100;
+        const upcomingSessions = await MentorshipSession.find({
+            $or: [
+                { mentor: req.session.user._id },
+                { student: req.session.user._id },
+            ],
+            date: { $gte: new Date() }
+        })
+            .populate("mentor student")
+            .sort("date");
+
+        const formattedSessions = upcomingSessions.map(session => ({
+            ...session.toObject(),
+            formattedDate: session.date.toLocaleDateString("en-US"),
+            formattedTime: session.date.toLocaleTimeString("en-US", {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: undefined // Omite los segundos
+            }),
+        })
+        );
+
+        res.render("dashboard.ejs", { title: `${user.username}'s Dashboard`, cssFiles: [], jsFiles: [], upcomingSessions: formattedSessions });
+    } catch (error) {
+        console.error(error);
+        res.redirect('/');
+    }
+});
+
+app.get("/about", (req, res) => {
+    res.render("about.ejs", { title: "About", cssFiles: [], jsFiles: [] });
+});
+
+app.use("/session", mentorshipSessionController);
+app.use("/review", reviewController)
+
+const port = process.env.PORT ||3100;
 app.listen(port, (req, res) => console.log(`Server listening on port ${port}`));

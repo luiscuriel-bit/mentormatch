@@ -22,7 +22,11 @@ router.get("/", async (req, res) => {
             const date = session.date;
 
             const formattedDate = date.toLocaleDateString("en-US");
-            const formattedTime = date.toLocaleTimeString("en-US");
+            const formattedTime = date.toLocaleTimeString("en-US", {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: undefined // Omite los segundos
+            });
 
             return {
                 ...session.toObject(),
@@ -42,11 +46,15 @@ router.get("/:sessionId", async (req, res) => {
     try {
         const session = await MentorshipSession.findById(req.params.sessionId)
             .populate("mentor student");
-        const date = session.date;
+
         const formattedSession = {
             ...session.toObject(),
-            formattedDate: date.toLocaleDateString("en-US"),
-            formattedTime: date.toLocaleTimeString("en-US"),
+            formattedDate: session.date.toLocaleDateString("en-US"),
+            formattedTime: session.date.toLocaleTimeString("en-US", {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: undefined // Omite los segundos
+            }),
         }
         res.render("mentorship-session/show.ejs", { title: `Session with ${req.session.user.role === "student" ? session.mentor.name : session.student.name}`, cssFiles: [], jsFiles: ["session-views.js"], session: formattedSession });
     } catch (error) {

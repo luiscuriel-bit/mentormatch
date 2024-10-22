@@ -31,7 +31,6 @@
                         </p>
                     <% } %>
 
-                    
                     <div class="container text-center">
                         <% if (session.mentor._id.equals(user._id)) { %>
                             <a href="/session/<%= session._id %>/edit" class="btn btn-secondary">Edit Session</a>
@@ -39,7 +38,7 @@
                             
                         <% if (session.student._id.equals(user._id)) { %>
                             <button type="button" id="reviewBtn" class="btn btn-secondary scale">Add Review</button>
-                            <form action="/review/<%= session._id %>" method="post" class="text-center mt-4" id="review">
+                            <form action="/review/<%= session._id %>" method="post" class="text-center mt-4 d-none" id="review">
                                 <div class="mb-3">
                                     <label for="comment" class="form-label">Your Review</label>
                                     <textarea name="comment" id="comment" class="form-control" rows="3" required></textarea>

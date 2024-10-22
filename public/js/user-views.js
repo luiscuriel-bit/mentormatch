@@ -25,7 +25,7 @@ function handleSubmit(event) {
     } else {
         user.classList.remove('is-invalid');
     }
-
+    
     if (!username.value) {
         isValid = false;
         username.classList.add('is-invalid');

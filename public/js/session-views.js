@@ -23,13 +23,12 @@ function checkAvailability(event) {
 }
 
 function showReviewForm(event) {
-    reviewBtn.style.display = "none";
-    reviewForm.style.display = "block";
+    reviewBtn.classList.add("d-none");
+    reviewForm.classList.remove("d-none")
 }
 
 if (reviewBtn) {
     reviewBtn.addEventListener("click", showReviewForm);
-    reviewForm.style.display = "none";
 }
 
 if (formEl) {

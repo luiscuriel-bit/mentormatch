@@ -12,7 +12,7 @@ const User = require("../models/User.js");
 router.get("/sign-up", async (req, res) => {
     const subjectList = ["Mathematics", "Physics", "Chemistry", "Biology", "History", "Literature", "Psychology", "Philosophy", "Economics", "Political Science", "Sociology", "Computer Science", "Software Engineering", "Web Development", "Graphic Design", "Business Administration", "Marketing", "Accounting", "Statistics", "Communication", "Education", "Medicine", "Nursing", "Architecture", "Law", "Linguistics", "Anthropology", "Music", "Fine Arts", "Social Work"];
 
-    res.render("auth/sign-up.ejs", { title: "Sign up", cssFiles: ["sign-up.css"], jsFiles: ["user-views.js"], subjectList});
+    res.render("auth/sign-up.ejs", { title: "Sign Up", cssFiles: ["sign-up.css"], jsFiles: ["user-views.js"], subjectList});
 });
 
 router.post("/sign-up", async (req, res) => {
@@ -50,7 +50,7 @@ router.post("/sign-up", async (req, res) => {
 
 // Sign in
 router.get("/sign-in", (req, res) => {
-    res.render("auth/sign-in.ejs", { title: "Sign in", cssFiles: [], jsFiles: [] });
+    res.render("auth/sign-in.ejs", { title: "Sign In", cssFiles: [], jsFiles: [] });
 });
 
 router.post("/sign-in", async (req, res) => {

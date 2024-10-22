@@ -7,33 +7,53 @@
 
         <%- include("../partials/navbar.ejs") %>
 
-            <form action="/session/<%= mentor._id %>" method="post" id="form">
-                <label for="subject">Subject</label>
-                <select name="subject" id="subject">
-                    <% for (subject of subjectList) { %>
-                        <option value="<%= subject %>">
-                            <%= subject %>
-                        </option>
-                    <% } %>
-                </select>
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h1 class="text-center">Schedule a Session</h1>
+                            </div>
 
-                <label for="date">date</label>
-                <input type="date" name="date" id="date">
-
-                <label for="time">Time</label>
-                <select name="time" id="time">
-                    <option value="" disabled selected>Choose a time</option>
-                    <option value="15:30" id="T15:30" class="time-slot">3:30 PM</option>
-                    <option value="17:30" id="T17:30" class="time-slot">5:30 PM</option>
-                    <option value="19:30" id="T19:30" class="time-slot">7:30 PM</option>
-                </select>
-
-                <button type="submit">Schedule</button>
-            </form>
+                            <form action="/session/<%= mentor._id %>" method="post" id="form">
+                                <div class="form-group mb-4">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <select class="form-select" name="subject" id="subject" required>
+                                        <% for (subject of subjectList) { %>
+                                            <option value="<%= subject %>"><%= subject %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                    
+                                <div class="form-group mb-4">
+                                    <label for="date" class="form-label">date</label>
+                                    <input type="date" class="form-control" name="date" id="date" required>
+                                </div>
+                                
+                                <div class="form-group mb-4">
+                                    <label for="time" class="form-label">Time</label>
+                                    <select class="form-select" name="time" id="time" required>
+                                        <option value="" disabled selected>Choose a time</option>
+                                        <option value="15:30" id="T15:30" class="time-slot">3:30 PM</option>
+                                        <option value="17:30" id="T17:30" class="time-slot">5:30 PM</option>
+                                        <option value="19:30" id="T19:30" class="time-slot">7:30 PM</option>
+                                    </select>
+                                </div>
+                
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary">Schedule</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <script>
-                const occupiedSlots = <%- JSON.stringify(occupiedSlots) %>;
-            </script>
+        </div>
+            
+        <script>
+            const occupiedSlots = <%- JSON.stringify(occupiedSlots) %>;
+        </script>
     </body>
 
 </html>

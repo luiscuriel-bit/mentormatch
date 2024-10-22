@@ -4,29 +4,49 @@
 <%- include("../partials/head.ejs") %>
 
     <body>
-        <h1>Create a new account</h1>
-        <form action="/user/<%= userProfile._id %>?_method=put" method="post">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" required />
-            
-            <label for="bio">Biography</label>
-            <input type="text" name="profile[bio]" id="bio" maxlength="500">
-            
-            <div id="<%= `${userProfile.role}Fields` %>">
-                <label for="<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>"><%= userProfile.role === 'mentor' ? 'Experience' : 'Interests'%></label>
-                <select name="profile[<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>]" id="<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>" multiple>
-                    <% for (subject of subjectList) { %>
-                        <option value="<%= subject %>"><%= subject %></option>
-                    <% } %>`
-                </select>
+
+        <%- include("../partials/navbar.ejs") %>
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="text-center">Edit Profile</h1>
+                            
+                            <form action="/user/<%= userProfile._id %>?_method=put" method="post">
+                                <div class="form-group mb-4">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" value="<%= userProfile.name %>" required />    
+                                </div>
+                                
+                                <div class="form-group mb-4">
+                                    <label for="bio" class="form-label">Biography</label>
+                                    <textarea class="form-control" type="text" name="profile[bio]" id="bio" maxlength="500"><%= userProfile.profile.bio %></textarea>
+                                </div>
+                                
+                                <div class="form-group mb-4" id="<%= `${userProfile.role}Fields` %>">
+                                    <label for="<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>" class="form-label"><%= userProfile.role === 'mentor' ? 'Experience' : 'Interests'%></label>
+                                    <select name="profile[<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>]" class="form-control" id="<%= userProfile.role === 'mentor' ? 'experience' : 'interests' %>" multiple>
+                                        <% for (subject of subjectList) { %>
+                                            <option value="<%= subject %>" <%= userProfile.profile[userProfile.role === 'mentor' ? 'experience' : 'interests'].includes(subject) ? 'selected' : '' %>><%= subject %></option>
+                                        <% } %>`
+                                    </select>
+                                </div>
+                                    
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                    
+                            </form>
+                                
+                            <form action="/user/<%= userProfile._id %>?_method=delete" method="post" class="text-center mt-4">
+                                <button type="submit" class="btn btn-danger">Delete account</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <button type="submit">Update</button>
-        </form>
-
-        <form action="/user/<%= userProfile._id %>?_method=delete" method="post">
-            <button type="submit">Delete account</button>
-        </form>
+        </div>
     </body>
-
+                            
 </html>

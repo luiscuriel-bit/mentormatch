@@ -7,29 +7,42 @@
 
         <%- include("./partials/navbar.ejs") %>
 
-            <h1>Search results for <%= query %>
-            </h1>
+            <div class="container">
 
-            <% if (mentors.length> 0) { %>
-                <ul>
-                    <% mentors.forEach(mentor=> { %>
-                        <li>
-                            <h2>
-                                <a href="/user/<%= mentor._id %>"><%= mentor.username %></a>
-                            </h2>
-                            <p><strong>
-                                    <%= mentor.bio %>
-                                </strong></p>
-                            <p><strong>Experience:</strong>
-                                <%= mentor.profile.experience.reduce((str, exp)=> str += `${exp}\n`, "")%>
-                            </p>
-                        </li>
+                <h1>Search results for <%= query %>
+                </h1>
+
+                <% if (mentors.length> 0) { %>
+                    <div class="row">
+                        <% mentors.forEach(mentor=> { %>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <h2 class="card-title">
+                                            <a href="/user/<%= mentor._id %>" class="text-decoration-none"><%= mentor.name %></a>
+                                        </h2>
+                                        <p class="card-text">
+                                            <strong><%= mentor.bio %></strong>
+                                        </p>
+                                        <p class="card-text">
+                                            <strong>Experience: </strong>
+                                            <%= mentor.profile.experience.join(", ") %>
+                                        </p>
+                                    </div>
+
+                                    <div class="card-footer text-center">
+                                        <a href="/user/<%= mentor._id %>" class="btn btn-primary">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                                
                         <% }); %>
-                </ul>
+                    </div>
                 <% } else { %>
-                    <p>No mentors found matching your search</p>
+                    <p class="alert alert-warning">No mentors found matching your search</p>
                 <% } %>
 
+            </div>
     </body>
 
 </html>

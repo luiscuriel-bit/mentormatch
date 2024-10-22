@@ -1,21 +1,13 @@
 const form = document.querySelector("form");
-const role = document.getElementById("role");
+const user = document.getElementById("name");
+const username = document.getElementById("username");
+const email = document.getElementById("email");
 const password = document.getElementById("password");
 const confirmPassword = document.getElementById("confirmPassword");
-const strengthMessage = document.getElementById("strengthMessage")
+const role = document.getElementById("role");
 const experience = document.getElementById("experience")
 const mentorFields = document.getElementById("mentorFields");
 const studentFields = document.getElementById("studentFields");
-
-function handlePasswordInput(event) {
-    const password = this.value;
-    if (password.length < 8) {
-        strengthMessage.textContent = "Password too short";
-    }
-    else {
-        strengthMessage.textContent = "Password is strong";
-    }
-}
 
 function handleRoleChange(event) {
     mentorFields.style.display = role.value === "mentor" ? "block" : "none";
@@ -24,15 +16,56 @@ function handleRoleChange(event) {
 }
 
 function handleSubmit(event) {
+
+    let isValid = true;
+
+    if (!user.value) {
+        isValid = false;
+        user.classList.add('is-invalid');
+    } else {
+        user.classList.remove('is-invalid');
+    }
+
+    if (!username.value) {
+        isValid = false;
+        username.classList.add('is-invalid');
+    } else {
+        username.classList.remove('is-invalid');
+    }
+
+    if (!email.value || !email.checkValidity()) {
+        isValid = false;
+        email.classList.add('is-invalid');
+    } else {
+        email.classList.remove('is-invalid');
+    }
+
+    if (password.value.length < 8) {
+        isValid = false;
+        password.classList.add('is-invalid');
+    } else {
+        password.classList.remove('is-invalid');
+    }
+
     if (password.value !== confirmPassword.value) {
+        isValid = false;
+        confirmPassword.classList.add('is-invalid');
+    } else {
+        confirmPassword.classList.remove('is-invalid');
+    }
+
+    if (!role.value) {
+        isValid = false;
+        role.classList.add('is-invalid');
+    } else {
+        role.classList.remove('is-invalid');
+    }
+
+    if (!isValid) { 
         event.preventDefault();
-        alert("Passwords must match");
     }
 }
 
 // Event Listener
-if (password) {
-    password.addEventListener("input", handlePasswordInput);
-    form.addEventListener("submit", handleSubmit);
-}
+form.addEventListener("submit", handleSubmit);
 role.addEventListener("change", handleRoleChange);

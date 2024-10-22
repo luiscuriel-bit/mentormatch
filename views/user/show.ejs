@@ -4,46 +4,60 @@
 <%- include("../partials/head.ejs") %>
 
     <body>
-
         <%- include("../partials/navbar.ejs") %>
-
-        <% if (user && userProfile._id.equals(user._id)) { %>
-            <a href="/user/<%= user._id %>/edit">Edit</a>
-        <% } %>
-        
-        <h1><%= userProfile.name %></h1>
-        <h1><%= userProfile.username %></h1>
-
-        <h2><%= userProfile.role %></h2>
-
-        <p>
-            <%= userProfile.profile %>
-        </p>
-
-        <h2><%= userProfile.role === "mentor" ? "Experience" : "Interests" %></h2>
-
-        <ul>
-            <% const knowledgeArea = userProfile.role === "mentor" ? userProfile.profile.experience : userProfile.profile.interests %>
-            
-            <% for (item of knowledgeArea) { %>
-                <li><%= item %></li>
-            <% } %>
-        </ul>
-
-        <% if (userProfile.role === "mentor") { %>
-            <% for (review of userProfile.reviews) { %>
-                <article>
-                    <h3><%= review.comment %></h3>
-                    <p>by <%= review.student.username %></p>
-                    <p><%= review.rating %> / 5</p>
-                </article>
-            <% } %>
-            <% if (user && user.role === "student") { %>
-                <a href="/session/new/<%= userProfile._id %>">Schedule a session</a>
-            <% } %>
-        <% } %>
-
-        
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-2 d-flex justify-content-start align-items-start">
+                    <% if (user && userProfile._id.equals(user._id)) { %>
+                            <a href="/user/<%= user._id %>/edit" class="btn btn-secondary">Edit Profile</a>
+                    <% } %>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h1 class="display-4"><%= userProfile.name %></h1>
+                            <h2 class="text-muted">@<%= userProfile.username %></h2>
+                            
+                            <h3 class="my-4"><%= userProfile.role[0].toUpperCase() + userProfile.role.slice(1) %></h3>
+                            
+                            <p class="lead"><%= userProfile.profile.bio ? userProfile.profile.bio : "No bio provided" %></p>
+                            
+                            <h4><%= userProfile.role==="mentor" ? "Experience" : "Interests" %></h4>
+                            
+                            <ul class="list-group list-group-flush mb-4">
+                                <% const knowledgeAreas=userProfile.role==="mentor" ? userProfile.profile.experience : userProfile.profile.interests %>
+                                <% for (item of knowledgeAreas) { %>
+                                    <li class="list-group-item"><%= item %></li>
+                                <% } %>
+                            </ul>
+                                
+                            <% if (userProfile.role==="mentor" ) { %>
+                                <h4>Reviews</h4>
+                                    
+                                <div class="reviews">
+                                    <% if (userProfile.reviews.length> 0) { %>
+                                        <% for (review of userProfile.reviews) { %>
+                                            <article class="card my-3">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><%= review.comment %></h5>
+                                                    <p class="card-text">by <%= review.student.username %></p>
+                                                    <p class="card-text"><strong>Rating: </strong><%= review.rating %> / 5</p>
+                                                </div>
+                                            </article>
+                                        <% } %>
+                                    <% } else { %>
+                                        <p>No reviews yet.</p>
+                                    <% } %>
+                                </div>
+                                <% if (user && user.role==="student" ) { %>
+                                    <a href="/session/new/<%= userProfile._id %>" class="btn btn-primary mt-4">Schedule a session</a>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 
 </html>

@@ -55,19 +55,18 @@ router.get("/:sessionId", async (req, res) => {
     }
 });
 
-
 // New session form
 router.get("/new/:mentorId", async (req, res) => {
     try {
         const mentor = await User.findById(req.params.mentorId).populate("sessions");
-
+        
         const occupiedSlots = mentor.sessions.map(session => {
             return {
                 date: session.date.toISOString().split("T")[0],
                 time: session.date.toTimeString().split(" ")[0].slice(0, 5),
             }
         });
-
+        
         const subjectList = mentor.profile.experience;
         res.render("mentorship-session/new.ejs", { title: `Session with ${mentor.username}`, cssFiles: [], jsFiles: ["new-session.js"], mentor, occupiedSlots, subjectList });
     } catch (error) {
@@ -81,16 +80,16 @@ router.post("/:mentorId", async (req, res) => {
     try {
         const mentor = await User.findById(req.params.mentorId);
         const student = await User.findById(req.session.user._id);
-
+        
         if (!mentor || !student) {
             throw new Error('Mentor or student not found');
         }
         const selectedDate = new Date(`${req.body.date}T${req.body.time}:00Z`);
-
+        
         const [hours, minutes] = req.body.time.split(':').map(Number);
         selectedDate.setHours(hours);
         selectedDate.setMinutes(minutes);
-
+        
         const newSession = await MentorshipSession.create({
             mentor: mentor._id,
             student: student._id,
@@ -101,7 +100,7 @@ router.post("/:mentorId", async (req, res) => {
         student.sessions.push(newSession._id);
         await mentor.save();
         await student.save();
-
+        
         res.redirect(`/user/${mentor._id}`);
     } catch (error) {
         console.error(error);
@@ -109,7 +108,14 @@ router.post("/:mentorId", async (req, res) => {
     }
 });
 
+// Session edit view
+router.get("/:sessionId/edit", async (req, res) => {
+    
+});
 
-//Missing put method and delete
+// Session delete view
+router.delete("/:sessionId", async (req, res) => {
+    
+});
 
 module.exports = router;

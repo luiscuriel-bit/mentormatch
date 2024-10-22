@@ -7,30 +7,71 @@
 
         <%- include("./partials/navbar.ejs") %>
 
-        <header>
-            <h1>Welcome to MentorMatch</h1>
-            <p>Your go-to platform for discovering and booking academic mentorship sessions</p>
-        </header>
-        <% if (user) { %>
-            <h2>Hello again, <%= user.username %>!</h2>
-            <a href="/dashboard">Go to your Dashboard</a>
-        <% } else { %>
-            <a href="/auth/sign-up" class="btn btn-primary">Start Today</a>        
-        <% } %>
+            <header class="hero d-flex align-items-center">
+                <div class="container">
+                    <h1 class="display-2">Welcome to MentorMatch</h1>
+                    <p class="lead fs-3">Your go-to platform for discovering and booking academic mentorship sessions</p>
+                    <% if (user) { %>
+                        <h4 class="display-5">Hello again, <%= user.username %>!</h4>
+                        <a href="/dashboard" class="btn btn-primary scale">Go to your Dashboard</a>
+                    <% } else { %>
+                        <a href="/auth/sign-up" class="btn btn-primary scale">Start Today</a>
+                    <% } %>
+                </div>
+            </header>
 
-        <section>
-            <h3>How it Works</h3>
-            <p>Find the perfect mentor or student, book a session, and improve your skills.</p>
-        </section>
-    
-        <section>
-            <h3>Why Choose MentorMatch?</h3>
-            <ul>
-                <li>Experienced Mentors</li>
-                <li>Personalized Sessions</li>
-                <li>Easy Booking</li>
-            </ul>
-        </section>
+
+            <section class="py-5">
+                <div class="container">
+                    <h3 class="mb-4">How it Works</h3>
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="card scale">
+                                <div class="card-body">
+                                    <h5 class="card-title">Find a Mentor</h5>
+                                    <p class="card-text">Browse through our extensive list of experienced mentors</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="card scale">
+                                <div class="card-body">
+                                    <h5 class="card-title">Book a Session</h5>
+                                    <p class="card-text">Schedule a session at a time that works for you</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="card scale">
+                                <div class="card-body">
+                                    <h5 class="card-title">Improve Your Skills</h5>
+                                    <p class="card-text">Get personalized feedback and guidance from your mentor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-5 bg-light">
+                <div class="container">
+                    <h3 class="mb-4">Why Choose MentorMatch?</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">✔️ Experienced Mentors</li>
+                        <li class="list-group-item">✔️ Personalized Sessions</li>
+                        <li class="list-group-item">✔️ Easy Booking</li>
+                        <li class="list-group-item">✔️ Flexible Schedule</li>
+                        <li class="list-group-item">✔️ Easy Booking</li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer class="text-center py-4 bg-dark text-light">
+                <a href="/about" class="text-light text-decoration-none">About Us</a>
+                <a href="/contact" class="text-light text-decoration-none">Contact</a>
+            </footer>
 
     </body>
 

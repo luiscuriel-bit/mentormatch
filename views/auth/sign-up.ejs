@@ -3,54 +3,85 @@
 
 <%- include("../partials/head.ejs") %>
 
-    <body>
-        <h1>Create a new account</h1>
-        <form action="/auth/sign-up" method="post">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" required />
+    <body class="bg-light">
+        <div class="container vh-100 d-flex justify-content-center align-items-center card ">
+            <div class="shadow-lg p-4 auth-card">
+                <h1 class="text-center mb-4">Create a New Account</h1>
 
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" required />
+                <form action="/auth/sign-up" method="post" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required />
+                        <div class="invalid-feedback">Please enter your name.</div>
+                    </div>
 
-            <label for="email">Email address</label>
-            <input type="email" name="email" id="email" required />
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" required />
+                        <div class="invalid-feedback">Please enter a username.</div>
+                    </div>
 
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" minlength="8" maxlength="100" autocomplete="off" />
-            <span id="strengthMessage"></span>
-            
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off" required />
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" name="email" id="email" class="form-control" required />
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
 
-            <label for="role">Role</label>
-            <select name="role" id="role" required>
-                <option value="" disabled selected >Choose an option</option>
-                <option value="student">Student</option>
-                <option value="mentor">Mentor</option>
-            </select>
-            
-            <label for="bio">Biography</label>
-            <input type="text" name="profile[bio]" id="bio" maxlength="500">
-            
-            <div id="mentorFields">
-                <label for="experience">Experience</label>
-                <select name="profile[experience]" id="experience" multiple >
-                    <% for (subject of subjectList) { %>
-                        <option value="<%= subject %>"><%= subject %></option>
-                    <% } %>
-                </select>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" minlength="8" maxlength="100" autocomplete="off" />
+                        <div class="invalid-feedback">Please enter a password with at least 8 characters.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" autocomplete="off" required />
+                        <div class="invalid-feedback">Please confirm your password.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role" class="form-label">Role</label>
+                        <select name="role" id="role" class="form-control" required>
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="student">Student</option>
+                            <option value="mentor">Mentor</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a role.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio" class="form-label">Biography</label>
+                        <input type="text" name="profile[bio]" id="bio" class="form-control" maxlength="500">
+                    </div>
+
+                    <div id="mentorFields" class="form-group">
+                        <label for="experience" class="form-label">Experience</label>
+                        <select name="profile[experience]" id="experience" class="form-select" multiple>
+                            <% for (subject of subjectList) { %>
+                                <option value="<%= subject %>">
+                                    <%= subject %>
+                                </option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <div id="studentFields" class="form-group">
+                        <label for="interests" class="form-label">Interests</label>
+                        <select name="profile[interests]" id="interests" class="form-select" multiple>
+                            <% for (subject of subjectList) { %>
+                                <option value="<%= subject %>">
+                                    <%= subject %>
+                                </option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </div>
+                </form>
             </div>
-            <div id="studentFields">
-                <label for="interests">Interests</label>
-                <select name="profile[interests]" id="interests" multiple>
-                    <% for (subject of subjectList) { %>
-                        <option value="<%= subject %>"><%= subject %></option>
-                    <% } %>
-                </select>
-            </div>
-
-            <button type="submit">Sign up</button>
-        </form>
+        </div>
     </body>
 
 </html>

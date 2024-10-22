@@ -7,10 +7,34 @@
 
         <%- include("../partials/navbar.ejs") %>
 
-            <h1><%= `${session.subject} class with ${user.role === "student" ? session.mentor.name : session.student.name}` %></h1>
+        <div class="container my-5">
+            <h1 class="text-center mb-4">
+                <%= `${session.subject} Class with ${user.role === "student" ? session.mentor.name : session.student.name}` %>
+            </h1>
 
-            <h2>Additional info</h2>
+            <div class="card mx-auto mw-600">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <%= session.subject %>
+                    </h3>
 
+                    <p class="card-text">
+                        <strong>Mentor:</strong> <%= session.mentor.name %><br>
+                        <strong>Student:</strong> <%= session.student.name %><br>
+                        <strong>Date:</strong> <%= session.formattedDate %><br>
+                        <strong>Time:</strong> <%= session.formattedTime %><br>
+                    </p>
+
+                    <% if (session.mentor._id.equals(user._id)) { %>
+                        <a href="/session/<%= session._id %>/edit" class="btn btn-secondary">Edit Session</a>
+                    <% } %>
+
+                    <form action="/session/<%= session._id %>?_method=delete" method="post" class="text-center mt-4">
+                        <button type="submit" class="btn btn-danger">Cancel Session</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
     </body>
-
 </html>

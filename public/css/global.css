@@ -1,4 +1,4 @@
-.navbar-container{
+.navbar-container {
     position: relative;
 }
 
@@ -10,7 +10,7 @@
     color: #FFF
 }
 
-.search-bar{
+.search-bar {
     width: 80%;
 }
 
@@ -19,6 +19,38 @@
     margin: 15px 50px;
 }
 
-.bg-custom{
-    background-color: rgba(6,13,34,255);
+.bg-custom-1 {
+    background-color: rgba(6, 13, 34, 255);
+}
+
+.bg-custom-2 {
+    background-color: #F7F7F7;
+}
+
+.scale:hover {
+    transform: scale(1.05);
+}
+
+.scale {
+    transition: transfom 0.2s;
+}
+
+.hero {
+    background: url("/img/index-background.jpg") center center;
+    background-size: cover;
+    color: #FFF;
+    height: 100vh;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-group{
+    margin-top: 15px;
+}
+
+.mw-600{
+    max-width: 600px;
 }

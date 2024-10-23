@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
             const formattedTime = date.toLocaleTimeString("en-US", {
                 hour: '2-digit',
                 minute: '2-digit',
-                second: undefined // Omite los segundos
+                second: undefined,
             });
 
             return {
@@ -53,7 +53,7 @@ router.get("/:sessionId", async (req, res) => {
             formattedTime: session.date.toLocaleTimeString("en-US", {
                 hour: '2-digit',
                 minute: '2-digit',
-                second: undefined // Omite los segundos
+                second: undefined,
             }),
         }
         res.render("mentorship-session/show.ejs", { title: `Session with ${req.session.user.role === "student" ? session.mentor.name : session.student.name}`, cssFiles: [], jsFiles: ["session-views.js"], session: formattedSession });

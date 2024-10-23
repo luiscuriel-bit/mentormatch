@@ -37,9 +37,6 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
     }),
-    cookie: {
-        secure: process.env.NODE_ENV === "production",
-    },
 }));
 
 app.use(express.urlencoded({ extended: true }));
@@ -58,6 +55,10 @@ app.get('/', (req, res) => {
 });
 
 app.use("/user", userController);
+
+app.get("/about", (req, res) => {
+    res.render("about.ejs", { title: "About", cssFiles: [], jsFiles: [] });
+});
 
 app.use(requireLogin);
 app.get("/dashboard", async (req, res) => {
@@ -80,7 +81,7 @@ app.get("/dashboard", async (req, res) => {
             formattedTime: session.date.toLocaleTimeString("en-US", {
                 hour: '2-digit',
                 minute: '2-digit',
-                second: undefined // Omite los segundos
+                second: undefined,
             }),
         })
         );
@@ -90,10 +91,6 @@ app.get("/dashboard", async (req, res) => {
         console.error(error);
         res.redirect('/');
     }
-});
-
-app.get("/about", (req, res) => {
-    res.render("about.ejs", { title: "About", cssFiles: [], jsFiles: [] });
 });
 
 app.use("/session", mentorshipSessionController);
